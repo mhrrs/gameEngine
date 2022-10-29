@@ -1,0 +1,44 @@
+the rectangular box is actually considered a button and should be in the ui engine
+
+i  believe the game logic will be controlled from the press button page
+
+CORRECTION NOTICE:
+- I changed the return value in the button_press.condition_to_act function from return True to return False. I believe this will beneficial in the long run but just wanted to keep a log.
+
+10/12/2022 conclusion log:
+-   I can currrently display a rectangle and determine whether a click is clicked within that rectangle. In other words, my button works. I am now currently working on deactivating the button once the button has been pressed. I am creating a deactivate and activate class to change the status of the button so that it won't be drawn in it's next iteration. I am currently going to pass these classes to the button entity and then upon successful click, scroll through the entities actions until I find the deactivate class, select it, and the call the activator function to call it as false. 
+
+10/13/2022: 
+- current idea:
+The current idea is to add activ class to the children of the press_button action. This way I can
+call it upon the press_button action being validated as true.
+
+10/13/2022: conclusion log:
+- This project was dramatically easier than I thought it was going to be. I implemented the 
+activate/deactivate feature by having it inserted into the children of the press_action function
+and then called the activator function by referring to it's entity_state's entity_state. (self.entity_state.entity_state.active) and then turning it to False for deactivate. After deactivating
+I change the characteristics of the button in the press_action.act() and then call activate on it.
+-APPARENTLY: I need a move_button action class that moves the button. Idk... I'll check it out.
+
+10/17/2022:
+Entities have actions, actions have children.
+- Essentially, you will have to turn the counters into the same thing as the hud and blit them onto the screen. This is because this is stupid and idk. 
+- My issue is that most of my game logic sits in the press_action class, which I don't believe is correct, I believe I need to be using the main.py page to react. My issue is how do I loop that.
+- Maybe have your condition_to_act functions look for different signals. For example, see if a value has been changed and if so, then return True on condition_to_act
+
+- maybe declare your counters, insert the increment action function and have it use the is_inside function to change
+- Issue: you can call the increment function, but calling it does not also link the info to the other entity that it is also attached to.
+
+10/19/2022:
+- I connected the hud_action by inserting it as a child into increment_action which is a child within press_action. This way when the mouse is clicked, the counters are updated and returned to the increment_action which then returns the values to the hud_action which displays them.
+
+
+10/20/2022:
+- So you are supposed to be pumping the action classes into children of other actions
+- Figured a lot out today. Now I am trying to workout the generate_message aspect
+- Maybe I should add the increments into the gen_message
+
+
+10/28/2022:
+- everything is working slightly better and is more streamlined, there is definitely room for improvement though
+- Added colorChange feature which can be attatched as an action to an entity. The resulting effect is a constantly changing color object. This might be good to use as a way to assign a meaning to a particular object in a game. For example, if a player obtains a certain item, call colorChange to indicate they now have the properties of whatever item they took.
